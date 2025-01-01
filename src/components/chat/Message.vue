@@ -21,6 +21,14 @@ export default {
         }
       }
 
+      if (this.api.stvbadges) {
+        for (const value of this.api.stvbadges) {
+          if (value.Users.includes(this.payload.tags.user_id)) {
+            badges.push(value.Url)
+          }
+        }
+      }
+
       return badges
     },
     MessageSize() {
@@ -54,10 +62,17 @@ export default {
       :color="payload.tags.color"
       :pageConfig="pageConfig"
       :Background="Background"
+      :Paints="api.paints"
+      :userid="payload.tags.user_id"
     />
-    <span id="content" v-twitch-emotes="TwitchEmotes" v-emoji v-emotes="api.emotes">{{
-      payload.parameters
-    }}</span>
+    <span
+      id="content"
+      v-twitch-emotes="TwitchEmotes"
+      v-emoji
+      v-emotes="api.emotes"
+      v-personal-emotes="api.personalEmotes[payload.source.nick]"
+      >{{ payload.parameters }}</span
+    >
   </div>
 </template>
 

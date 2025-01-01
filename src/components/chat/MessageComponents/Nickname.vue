@@ -9,9 +9,12 @@ export default {
     color: String,
     pageConfig: Object,
     Background: String,
+    Paints: Object,
+    userid: String,
   },
   data() {
     return {
+      // HavePaints: false,
       defaultColors: [
         '#4242f7',
         '#ff7f50',
@@ -33,6 +36,9 @@ export default {
   },
   computed: {
     Color() {
+      if (this.HavePaints) {
+        return ''
+      }
       let color = this.color
       if (!this.color) {
         color = this.defaultColors[Math.floor(Math.random() * this.defaultColors.length)]
@@ -71,19 +77,85 @@ export default {
       }
       return color
     },
+    HavePaints() {
+      if (this.Paint != undefined) {
+        return true
+      }
+      return false
+    },
+    Paint() {
+      for (const value of this.Paints) {
+        if (value.users.includes(this.userid)) {
+          return value
+        }
+      }
+      return null
+    },
+    bgImage() {
+      if (!this.Paint) {
+        return ''
+      }
+      let cssFunc = ''
+
+      const args = []
+      switch (this.Paint.function) {
+        case 'LINEAR_GRADIENT':
+          cssFunc = 'linear-gradient'
+          args.push(`${this.Paint.angle}deg`)
+          break
+        case 'RADIAL_GRADIENT':
+          cssFunc = 'radial-gradient'
+          args.push(this.Paint.shape ?? 'circle')
+          break
+        case 'URL':
+          cssFunc = 'url'
+          args.push(this.Paint.image_url ?? '')
+          break
+      }
+      let funcPrefix = ''
+      if (this.Paint.function !== 'URL') {
+        funcPrefix = this.Paint.repeat ? 'repeating-' : ''
+      }
+      for (const stop of this.Paint.stops) {
+        const color = Common.DecimalToStringRGBA(stop.color)
+        args.push(`${color} ${stop.at * 100}%`)
+      }
+      return `${funcPrefix}${cssFunc}(${args.join(', ')})`
+    },
+    filter() {
+      try {
+        return this.Paint.shadows
+          .map(
+            (v) =>
+              `drop-shadow(${v.x_offset}px ${v.y_offset}px ${v.radius}px ${Common.DecimalToStringRGBA(v.color)})`,
+          )
+          .join(' ')
+      } catch {
+        return ''
+      }
+    },
   },
 }
 </script>
 
 <template>
-  <span class="nickname"> {{ nick }}: </span>
+  <span class="nickname" :HavePaints="HavePaints"> {{ nick }}: </span>
 </template>
 
 <style>
 .nickname {
   color: v-bind('Color');
+  filter: v-bind('filter');
   vertical-align: middle;
   margin-left: 4px;
   font-weight: 700;
+  background-size: cover;
+}
+.nickname[HavePaints='true'] {
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text !important;
+  background-color: currentcolor;
+  background-image: v-bind('bgImage');
 }
 </style>

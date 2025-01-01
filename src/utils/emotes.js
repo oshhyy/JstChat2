@@ -1,6 +1,7 @@
 var EmotesBaseUrl = {
   '7TV': 'https://cdn.7tv.app/emote/{0}/2x.webp',
   BTTV: 'https://cdn.betterttv.net/emote/{0}/2x',
+  FFZanimated: 'https://cdn.frankerfacez.com/emote/{0}/animated/2',
   FFZ: 'https://cdn.frankerfacez.com/emote/{0}/2',
 }
 
@@ -12,7 +13,7 @@ export default {
         let em = emotes[t]
         res = res.replace(
           ` ${t} `,
-          ` <img src="${EmotesBaseUrl[em.Type].replace('{0}', em.ID)}" ZeroWidth="${em.ZeroWidth}"> `,
+          ` <img src="${EmotesBaseUrl[em.Type + (em.animated ? 'animated' : '')].replace('{0}', em.ID)}" ZeroWidth="${em.ZeroWidth}"> `,
         )
       }
     }
@@ -33,6 +34,7 @@ export default {
   ParsePersonal(html, emotes) {
     let res = ' ' + html + ' '
     if (emotes !== undefined) {
+      console.log(emotes)
       for (const em of emotes) {
         /* eslint-disable no-unused-vars */
         for (const t of html.split(' ')) {

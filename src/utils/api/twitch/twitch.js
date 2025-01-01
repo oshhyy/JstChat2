@@ -8,7 +8,6 @@ export default class TwitchAPI {
   async fetchData() {
     this.badges = await this.getGlobalBadges()
     this.userID = await this.getUserID(this.channel)
-    console.log(await this.getSubscriberBadges(this.userID))
     this.badges['subscriber'] = await this.getSubscriberBadges(this.userID)
   }
 
@@ -36,7 +35,6 @@ export default class TwitchAPI {
   async getUserID(channel) {
     const response = await fetch(`https://api.ivr.fi/v2/twitch/user?login=${channel}`)
     if (response.ok) {
-      console.log('IVR API successful, getting user-id...')
       const json = await response.json()
       return json[0].id
     }
