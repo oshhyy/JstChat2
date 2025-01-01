@@ -2,8 +2,21 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import emotes from './utils/emotes'
 import twemoji from './utils/tweemoji'
+import { createWebHistory, createRouter } from 'vue-router'
+import Chat from './components/Chat.vue'
+import Main from './main.vue'
 
 const app = createApp(App)
+
+const routes = [
+  { path: '/chat', component: Chat },
+  { path: '/', component: Main },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
 
 app.directive('emoji', {
   mounted(el) {
@@ -31,4 +44,4 @@ app.directive('personal-emotes', {
   },
 })
 
-app.mount('#app')
+app.use(router).mount('#app')

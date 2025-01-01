@@ -14,16 +14,15 @@ export default {
       client: null,
       api: null,
       messages: [],
-      userID: null,
       useBG: 0,
 
       pageConfig: {
         maxMes: 50,
-        fontSizeI: 18,
-        channel: 'melharucos',
+        fontSizeI: parseInt(this.$route.query.font_size || '18'),
+        channel: this.$route.query.channel,
 
-        backgrounds: ['#2b2b2b'],
-        calcSecondBackgrounds: 5,
+        backgrounds: [this.$route.query.background || '#2b2b2b'],
+        calcSecondBackgrounds: parseInt(this.$route.query.sb || '5'),
       },
     }
   },
@@ -141,8 +140,6 @@ export default {
           ind = this.pageConfig.calcSecondBackgrounds - index - 1
         }
 
-        console.log(ind)
-
         let gray = Common.toGray(this.pageConfig.backgrounds[ind])
         if (gray > 0.38) {
           minus = -30 / gray
@@ -192,6 +189,9 @@ export default {
     fontSize() {
       return `${this.pageConfig.fontSizeI}px`
     },
+    mlen() {
+      return `${this.messages.length - 1}`
+    },
   },
 }
 </script>
@@ -199,11 +199,12 @@ export default {
 <template>
   <div id="chat">
     <Message
-      v-for="item in messages"
+      v-for="(item, i) in messages"
       :key="item.tags.id"
       :payload="item"
       :api="api"
       :pageConfig="pageConfig"
+      :pos="i"
     />
   </div>
 </template>
@@ -218,5 +219,9 @@ export default {
   left: 0;
 
   font-size: v-bind('fontSize');
+  border-radius: 30px;
+}
+#message[pos='v-bind(mlen)'] {
+  border: 10px solid red;
 }
 </style>
