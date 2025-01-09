@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import emotes from './utils/emotes'
 import twemoji from './utils/tweemoji'
-import { createWebHistory, createRouter } from 'vue-router'
+import { createWebHashHistory, createRouter } from 'vue-router'
 import Chat from './components/Chat.vue'
 import Main from './main.vue'
 
@@ -14,7 +14,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 

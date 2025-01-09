@@ -21,6 +21,8 @@ export default {
         fontSizeI: parseInt(this.$route.query.font_size || '18'),
         channel: this.$route.query.channel,
 
+        border: this.$route.query.border || '2',
+
         backgrounds: [this.$route.query.background || '#2b2b2b'],
         calcSecondBackgrounds: parseInt(this.$route.query.sb || '5'),
       },
@@ -189,15 +191,15 @@ export default {
     fontSize() {
       return `${this.pageConfig.fontSizeI}px`
     },
-    mlen() {
-      return `${this.messages.length - 1}`
+    isTransparent() {
+      return this.pageConfig.backgrounds[0] == 'transparent'
     },
   },
 }
 </script>
 
 <template>
-  <div id="chat">
+  <div id="chat" :transparent="isTransparent">
     <Message
       v-for="(item, i) in messages"
       :key="item.tags.id"
@@ -219,9 +221,8 @@ export default {
   left: 0;
 
   font-size: v-bind('fontSize');
-  border-radius: 30px;
 }
-#message[pos='v-bind(mlen)'] {
-  border: 10px solid red;
+#chat[transparent='true'] {
+  text-shadow: 0px 0px 8px rgb(0 0 0 / 100%);
 }
 </style>

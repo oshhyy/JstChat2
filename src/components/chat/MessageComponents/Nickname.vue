@@ -157,5 +157,6 @@ export default {
   background-clip: text !important;
   background-color: currentcolor;
   background-image: v-bind('bgImage');
+  text-shadow: none !important;
 }
 </style>

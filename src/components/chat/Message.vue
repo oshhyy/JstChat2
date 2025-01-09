@@ -49,6 +49,9 @@ export default {
     EmojiSize() {
       return `${this.pageConfig.fontSizeI + 10}px`
     },
+    Border() {
+      return `${this.pageConfig.border}px solid black`
+    },
   },
 }
 </script>
@@ -91,7 +94,7 @@ export default {
   vertical-align: middle;
 }
 #message {
-  border-top: 2px solid black;
+  border-top: v-bind(Border);
 
   min-height: v-bind('MessageSize');
 
