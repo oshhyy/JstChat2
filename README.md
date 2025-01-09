@@ -15,5 +15,6 @@ basic url for chat is https://justririll.github.io/JstChat2/#/chat?channel=<YOUR
 
 for default style:
 https://justririll.github.io/JstChat2/#/chat?channel=<YOUR CHANNEL>
+
 no background style:
 https://justririll.github.io/JstChat2/#/chat?channel=<YOUR CHANNEL>&background=transparent&border=0
