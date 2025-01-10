@@ -1,34 +1,33 @@
 <template>
   <div id="main">
     <div id="index">
-      <div id="title">просто чат 2</div>
+      <div id="title">Just Chat 2</div>
       <span id="git">github: <a href="http://github.com/justririll">justririll</a></span> <br />
     </div>
-
     <div id="params">
       <div id="param">
-        <span id="href" @click="$router.go(-1)" style="text-decoration: underline">ENG</span>
+        <span id="href" @click="$router.push('ru')" style="text-decoration: underline">RU</span>
       </div>
       <div id="param">
-        <span id="info">канал:</span> <br />
-        <input type="text" placeholder="канал" v-model="channel" />
+        <span id="info">channel:</span> <br />
+        <input type="text" placeholder="channel" v-model="channel" />
       </div>
 
       <div id="param">
-        <span id="info">стиль:</span> <br />
+        <span id="info">style:</span> <br />
         <select @change="changeStyle">
-          <option value="1">с фоном</option>
-          <option value="2">без фона</option>
+          <option value="1">with background</option>
+          <option value="2">without background</option>
         </select>
       </div>
 
       <div id="param">
-        <span id="info">пример чата:</span> <br />
+        <span id="info">chat example:</span> <br />
         @todo
       </div>
 
       <div id="param">
-        <span id="info">ссылка:</span> <br />
+        <span id="info">your url:</span> <br />
         <input
           type="text"
           placeholder="фон"
@@ -42,16 +41,16 @@
       <br />
 
       <div id="param">
-        <span id="info"> расширенные настройки: </span>
+        <span id="info"> more options: </span>
       </div>
 
       <div id="param">
-        <span id="info">фон (HEX):</span> <br />
-        <input type="text" placeholder="фон" v-model="background" />
+        <span id="info">background (HEX):</span> <br />
+        <input type="text" placeholder="background" v-model="background" />
       </div>
       <div id="param">
-        <span id="info">сколько фонов:</span> <br />
-        <input type="number" placeholder="количество фонов" v-model="num_backgrounds" />
+        <span id="info">num backgrounds:</span> <br />
+        <input type="number" placeholder="num backgrounds" v-model="num_backgrounds" />
       </div>
       <div id="param">
         <span id="info">border:</span>
@@ -103,6 +102,12 @@ export default {
 
 <style>
 #main {
+  overflow: auto;
+  left: 0;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(#3e3e3e, #2b2b2b);
   background-attachment: fixed;
   color: white;
@@ -112,9 +117,13 @@ export default {
   margin-inline: auto;
   font-size: 3em;
 }
+#index {
+  max-width: fit-content;
+  margin-inline: auto;
+}
 input {
   border: none;
-  background: #2b2b2b;
+  background: #232323;
   color: white;
   width: 14em;
   font-size: 2em;
@@ -130,7 +139,7 @@ input {
 #info {
   font-size: 2em;
   font-family: 'Roboto', sans-serif;
-  margin-right: 2em;
+  /* margin-right: 2em; */
 }
 a {
   text-decoration: none;

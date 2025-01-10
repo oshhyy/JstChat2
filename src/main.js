@@ -5,12 +5,14 @@ import twemoji from './utils/tweemoji'
 import { createWebHashHistory, createRouter } from 'vue-router'
 import Chat from './components/Chat.vue'
 import Main from './main.vue'
+import MainENG from './eng.vue'
 
 const app = createApp(App)
 
 const routes = [
   { path: '/chat', component: Chat },
-  { path: '/', component: Main },
+  { path: '/ru', component: Main },
+  { path: '/', component: MainENG },
 ]
 
 const router = createRouter({

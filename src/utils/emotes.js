@@ -34,7 +34,6 @@ export default {
   ParsePersonal(html, emotes) {
     let res = ' ' + html + ' '
     if (emotes !== undefined) {
-      console.log(emotes)
       for (const em of emotes) {
         /* eslint-disable no-unused-vars */
         for (const t of html.split(' ')) {
