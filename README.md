@@ -2,7 +2,7 @@
 
 # usage
 
-basic url for chat is https://justririll.github.io/JstChat2/#/chat?channel=<YOUR CHANNEL>
+open [this url](https://justririll.github.io/JstChat2/#/)
 
 ## additional parameters:
 
