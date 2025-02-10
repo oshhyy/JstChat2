@@ -187,9 +187,7 @@ export default {
       this.messages = this.messages.filter((item) => item.source.nick !== payload.parameters)
     }
     this.client.OnClearMessage = async (payload) => {
-      this.messages = this.messages.filter(
-        (item) => item.tags['id'] !== payload.tags['target-msg-id'],
-      )
+      this.messages = this.messages.filter((item) => item.parameters !== payload.parameters)
     }
     this.client.connect()
   },
