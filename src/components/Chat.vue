@@ -239,16 +239,7 @@ export default {
         transform: translate3d(0,0,0);
         opacity: 1
     }
-}
-@keyframes fadeOut {
-    from {
-        opacity: 1
-    }
-
-    to {
-        opacity: 0
-    }
-}#chat > div{
-    animation: fadeInUp .3s ease forwards, fadeOut 1s ease 30s forwards
+} #chat > div{
+    animation: fadeInUp .3s ease forwards
 }
 </style>
