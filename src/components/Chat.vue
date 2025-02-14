@@ -226,7 +226,29 @@ export default {
 
   font-size: v-bind('fontSize');
 }
-#chat[transparent='true'] {
-  text-shadow: 0px 0px 8px rgb(0 0 0 / 100%);
+#chat {
+  text-shadow: 0 0 .1em rgb(0 0 0 / 100%),0 0 .1em rgb(0 0 0 / 100%);
+}
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0,1em,0);
+        opacity: 0.5
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1
+    }
+
+    to {
+        opacity: 0
+    }
+}#chat > div{
+    animation: fadeInUp .3s ease forwards, fadeOut 1s ease 30s forwards
 }
 </style>

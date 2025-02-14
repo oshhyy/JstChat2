@@ -11,7 +11,8 @@
   bottom: 0;
 }
 div {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 700;
 }
 body {
   overflow: hidden;

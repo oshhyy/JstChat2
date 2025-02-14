@@ -12,28 +12,6 @@ export default {
     Paints: Object,
     userid: String,
   },
-  data() {
-    return {
-      // HavePaints: false,
-      defaultColors: [
-        '#4242f7',
-        '#ff7f50',
-        '#1e90ff',
-        '#00ff7f',
-        '#9acd32',
-        '#008000',
-        '#ff4500',
-        '#ff0000',
-        '#daa520',
-        '#ff69b4',
-        '#5f9ea0',
-        '#2e8b57',
-        '#d2691e',
-        '#a065d7',
-        '#b22222',
-      ],
-    }
-  },
   computed: {
     Color() {
       if (this.HavePaints) {
@@ -41,7 +19,7 @@ export default {
       }
       let color = this.color
       if (!this.color) {
-        color = this.defaultColors[Math.floor(Math.random() * this.defaultColors.length)]
+        color = '#999999'
         return color
       }
       if (this.Background != 'transparent') {

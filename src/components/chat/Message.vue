@@ -81,14 +81,19 @@ export default {
 
 <style>
 .emoji {
-  height: v-bind('EmojiSize') !important;
-}
-#content img,
-.emoji {
-  height: v-bind('EmoteSize');
   vertical-align: middle;
   filter: unset;
-  padding-right: 5px;
+  width: auto;
+  max-height: 1.5em;
+}
+#content img {
+  width: auto;
+  height: 2.5em;
+  max-width: 400px;
+  vertical-align: middle;
+    filter: drop-shadow(0 0 .1em rgba(0, 0, 0, 1));
+} #content img[zerowidth="true"] {
+    margin-left: calc(-3em);
 }
 #content {
   vertical-align: middle;
