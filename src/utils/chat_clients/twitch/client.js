@@ -109,9 +109,9 @@ export default class TwitchClient {
     messages.forEach((message) => {
       let payload = chat.parseMessage(message)
       if (!payload) {
-        return
+        this.OnFadeAfter(message)
       }
-
+      this.OnFadeAfter(payload)
       switch (payload.command.command) {
         // announce - USERNOTICE
         // нужно добавить реконнект

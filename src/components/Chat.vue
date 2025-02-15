@@ -22,6 +22,7 @@ export default {
         channel: this.$route.query.channel,
 
         border: this.$route.query.border || '2',
+        fade: parseInt(this.$route.query.fade_after || '0'),
 
         backgrounds: [this.$route.query.background || '#2b2b2b'],
         calcSecondBackgrounds: parseInt(this.$route.query.sb || '5'),
@@ -128,7 +129,7 @@ export default {
     },
   },
   created: async function () {
-    this.createSystemMessage('loading')
+    this.createSystemMessage('Connecting...')
 
     if (
       this.pageConfig.calcSecondBackgrounds > 0 &&
@@ -189,21 +190,34 @@ export default {
     this.client.OnClearMessage = async (payload) => {
       this.messages = this.messages.filter((item) => item.parameters !== payload.parameters)
     }
+    this.client.OnFadeAfter = async (payload) => {
+      if (this.pageConfig.fade != "0") {
+            setTimeout((id) => {
+              this.messages = this.messages.filter(item => item.tags["id"] !== id && item.tags["id"] !== '0')
+            }, parseInt(this.pageConfig.fade)*1000, payload.tags.id.slice());
+          }
+    }
     this.client.connect()
+
   },
   computed: {
     fontSize() {
       return `${this.pageConfig.fontSizeI}px`
     },
+
     isTransparent() {
       return this.pageConfig.backgrounds[0] == 'transparent'
     },
+    animationClass() {
+      return parseInt(this.pageConfig.fade) === 0 ? 'fadeInUp .3s ease forwards' : `fadeInUp .3s ease forwards, fadeOut 0.5s linear ${parseInt(this.pageConfig.fade) - 0.5}s forwards`;
+  }
   },
 }
 </script>
 
 <template>
   <div id="chat" :transparent="isTransparent">
+    <transition-group :name="transition_group">
     <Message
       v-for="(item, i) in messages"
       :key="item.tags.id"
@@ -211,7 +225,9 @@ export default {
       :api="api"
       :pageConfig="pageConfig"
       :pos="i"
+      :class="animationClass"
     />
+    </transition-group>
   </div>
 </template>
 
@@ -227,7 +243,7 @@ export default {
   font-size: v-bind('fontSize');
 }
 #chat {
-  text-shadow: 0 0 .1em rgb(0 0 0 / 100%),0 0 .1em rgb(0 0 0 / 100%);
+  text-shadow: 0 0 .1em rgb(0, 0, 0),0 0 .1em rgb(0, 0, 0) !important;
 }
 @keyframes fadeInUp {
     from {
@@ -239,7 +255,18 @@ export default {
         transform: translate3d(0,0,0);
         opacity: 1
     }
-} #chat > div{
-    animation: fadeInUp .3s ease forwards
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+
+#chat > div {
+    animation: v-bind('animationClass')
 }
 </style>
