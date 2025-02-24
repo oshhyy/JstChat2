@@ -126,7 +126,6 @@ export default {
   filter: v-bind('filter');
   vertical-align: middle;
   margin-left: 4px;
-  font-weight: 700;
   background-size: cover;
 }
 .nickname[HavePaints='true'] {

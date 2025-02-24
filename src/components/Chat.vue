@@ -26,6 +26,9 @@ export default {
 
         backgrounds: [this.$route.query.background || '#2b2b2b'],
         calcSecondBackgrounds: parseInt(this.$route.query.sb || '5'),
+
+        fontName: this.$route.query.font || 'Roboto',
+        fontWeight: parseInt(this.$route.query.font_weight || '700'),
       },
     }
   },
@@ -210,7 +213,13 @@ export default {
     },
     animationClass() {
       return parseInt(this.pageConfig.fade) === 0 ? 'fadeInUp .3s ease forwards' : `fadeInUp .3s ease forwards, fadeOut 0.5s linear ${parseInt(this.pageConfig.fade) - 0.5}s forwards`;
-  }
+    },
+    fontName() {
+      return this.pageConfig.fontName
+    },
+    fontWeight() {
+      return this.pageConfig.fontWeight
+    }
   },
 }
 </script>
@@ -233,6 +242,8 @@ export default {
 
 <style>
 #chat {
+  font-family: v-bind('fontName'), sans-serif;
+  font-weight: v-bind('fontWeight');
   position: absolute;
   width: 100%;
 
@@ -241,10 +252,9 @@ export default {
   left: 0;
 
   font-size: v-bind('fontSize');
+  overflow: hidden;
 }
-#chat {
-  text-shadow: 0 0 .1em rgb(0, 0, 0),0 0 .1em rgb(0, 0, 0) !important;
-}
+
 @keyframes fadeInUp {
     from {
         transform: translate3d(0,1em,0);
@@ -267,6 +277,7 @@ export default {
 }
 
 #chat > div {
-    animation: v-bind('animationClass')
+    animation: v-bind('animationClass');
+    filter: drop-shadow(4px 4px 1px black);
 }
 </style>
