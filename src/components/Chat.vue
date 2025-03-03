@@ -188,7 +188,11 @@ export default {
       }
     }
     this.client.OnClearChat = async (payload) => {
-      this.messages = this.messages.filter((item) => item.source.nick !== payload.parameters)
+      if(payload.parameters == null) { // if paramaters, its a timeout. if not, its a clear chat
+        this.messages = []
+      } else {
+        this.messages = this.messages.filter((item) => item.source.nick !== payload.parameters)
+      }
     }
     this.client.OnClearMessage = async (payload) => {
       this.messages = this.messages.filter((item) => item.parameters !== payload.parameters)
