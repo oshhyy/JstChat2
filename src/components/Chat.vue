@@ -257,6 +257,7 @@ export default {
 
   font-size: v-bind('fontSize');
   overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 @keyframes fadeInUp {
