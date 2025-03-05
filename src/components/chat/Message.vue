@@ -91,7 +91,6 @@ export default {
   height: 2.5em;
   max-width: 400px;
   vertical-align: middle;
-  filter: drop-shadow(4px 4px 1px black);
 } #content img[zerowidth="true"] {
     margin-left: calc(-3em);
 }
