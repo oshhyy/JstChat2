@@ -18,7 +18,7 @@ export default {
 
       pageConfig: {
         maxMes: 50,
-        fontSizeI: parseInt(this.$route.query.font_size || '18'),
+        fontSizeI: parseInt(this.$route.query.font_size || '36'),
         channel: this.$route.query.channel,
 
         border: this.$route.query.border || '2',
@@ -27,8 +27,8 @@ export default {
         backgrounds: [this.$route.query.background || '#2b2b2b'],
         calcSecondBackgrounds: parseInt(this.$route.query.sb || '5'),
 
-        fontName: this.$route.query.font || 'Roboto',
-        fontWeight: parseInt(this.$route.query.font_weight || '700'),
+        fontName: this.$route.query.font || 'Open Sans',
+        fontWeight: parseInt(this.$route.query.font_weight || '800'),
       },
     }
   },
@@ -132,8 +132,6 @@ export default {
     },
   },
   created: async function () {
-    this.createSystemMessage('Connecting...')
-
     if (
       this.pageConfig.calcSecondBackgrounds > 0 &&
       this.pageConfig.backgrounds[0] != 'transparent'
@@ -181,6 +179,7 @@ export default {
     //
 
     this.client = new TwitchClient(this.pageConfig.channel)
+    this.createSystemMessage(`Connected to #${this.pageConfig.channel}!`)
     this.client.OnPrivateMessage = this.createTwitchMessage
     this.client.OnUserId = (id) => {
       if (this.userID == null) {
@@ -188,7 +187,8 @@ export default {
       }
     }
     this.client.OnClearChat = async (payload) => {
-      if(payload.parameters == null) { // if paramaters, its a timeout. if not, its a clear chat
+      if (payload.parameters == null) {
+        // if paramaters, its a timeout. if not, its a clear chat
         this.messages = []
       } else {
         this.messages = this.messages.filter((item) => item.source.nick !== payload.parameters)
@@ -198,14 +198,29 @@ export default {
       this.messages = this.messages.filter((item) => item.parameters !== payload.parameters)
     }
     this.client.OnFadeAfter = async (payload) => {
-      if (this.pageConfig.fade != "0") {
-            setTimeout((id) => {
-              this.messages = this.messages.filter(item => item.tags["id"] !== id && item.tags["id"] !== '0')
-            }, parseInt(this.pageConfig.fade)*1000, payload.tags.id.slice());
-          }
+      if (this.pageConfig.fade != '0') {
+        setTimeout(
+          (id) => {
+            const message = this.messages.find(
+              (item) => item.tags['id'] === id || item.tags['id'] === '0',
+            )
+            if (message) {
+              // Add fadeOut flag to the message
+              message.fadeOut = true
+            }
+            // Optionally remove the message after fade-out animation
+            setTimeout(() => {
+              this.messages = this.messages.filter(
+                (item) => item.tags['id'] !== id && item.tags['id'] !== '0',
+              )
+            }, 1000) // Wait for the fade-out animation to finish
+          },
+          parseInt(this.pageConfig.fade) * 1000,
+          payload.tags.id.slice(),
+        )
+      }
     }
     this.client.connect()
-
   },
   computed: {
     fontSize() {
@@ -215,15 +230,12 @@ export default {
     isTransparent() {
       return this.pageConfig.backgrounds[0] == 'transparent'
     },
-    animationClass() {
-      return parseInt(this.pageConfig.fade) === 0 ? 'fadeInUp .3s ease forwards' : `fadeInUp .3s ease forwards, fadeOut 0.5s linear ${parseInt(this.pageConfig.fade) - 0.5}s forwards`;
-    },
     fontName() {
       return this.pageConfig.fontName
     },
     fontWeight() {
       return this.pageConfig.fontWeight
-    }
+    },
   },
 }
 </script>
@@ -231,22 +243,22 @@ export default {
 <template>
   <div id="chat" :transparent="isTransparent">
     <transition-group :name="transition_group">
-    <Message
-      v-for="(item, i) in messages"
-      :key="item.tags.id"
-      :payload="item"
-      :api="api"
-      :pageConfig="pageConfig"
-      :pos="i"
-      :class="animationClass"
-    />
+      <Message
+        v-for="(item, i) in messages"
+        :key="item.tags.id"
+        :payload="item"
+        :api="api"
+        :pageConfig="pageConfig"
+        :pos="i"
+        :class="{ fadeOut: item.fadeOut }"
+      />
     </transition-group>
   </div>
 </template>
 
 <style>
 #chat {
-  font-family: v-bind('fontName'), sans-serif;
+  font-family: v-bind('fontName');
   font-weight: v-bind('fontWeight');
   position: absolute;
   width: 100%;
@@ -261,28 +273,32 @@ export default {
 }
 
 @keyframes fadeInUp {
-    from {
-        transform: translate3d(0,1em,0);
-        opacity: 0.5
-    }
+  from {
+    transform: translate3d(0, 1em, 0);
+    opacity: 0.5;
+  }
 
-    to {
-        transform: translate3d(0,0,0);
-        opacity: 1
-    }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-    from {
-        opacity: 1
-    }
-    to {
-        opacity: 0
-    }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 #chat > div {
-    animation: v-bind('animationClass');
-    filter: drop-shadow(4px 4px 1px black);
+  animation: fadeInUp 0.3s ease forwards;
+  filter: drop-shadow(3px 3px 0.1rem black);
+}
+
+#chat > div.fadeOut {
+  animation: fadeOut 0.5s forwards;
 }
 </style>

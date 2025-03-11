@@ -4,7 +4,7 @@ import ffz from './twitch/ffz'
 import TwitchAPI from './twitch/twitch'
 
 // @todo: нужно как то получать этот айди, а то эмоуты меняются по празникам
-const SevenTVGlobalEmoteSetID = '01GG8F04Y000089195YKEP5CA3'
+const SevenTVGlobalEmoteSetID = '01HKQT8EWR000ESSWF3625XCS4'
 
 export default class API {
   constructor(channel) {

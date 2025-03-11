@@ -92,7 +92,7 @@ export default {
   max-width: 400px;
   vertical-align: middle;
 } #content img[zerowidth="true"] {
-    margin-left: calc(-3em);
+  transform: translateX(-100%);
 }
 #content {
   vertical-align: middle;

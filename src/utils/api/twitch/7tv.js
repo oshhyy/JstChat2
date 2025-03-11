@@ -37,10 +37,10 @@ export default {
     return {}
   },
 
-  async get7tvEmoteSetObj() {
+  async get7tvEmoteSetObj(emoteSetID) {
     let emotes = {}
 
-    const response = await fetch(`https://7tv.io/v3/emote-sets/01GG8F04Y000089195YKEP5CA3`)
+    const response = await fetch(`https://7tv.io/v3/emote-sets/${emoteSetID}`)
     if (response.ok) {
       const json = await response.json()
       for (const value of json['emotes']) {
