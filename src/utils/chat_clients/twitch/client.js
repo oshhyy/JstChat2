@@ -109,10 +109,9 @@ export default class TwitchClient {
     messages.forEach((message) => {
       let payload = chat.parseMessage(message)
       if (!payload) {
-        this.OnFadeAfter(message)
+        return
       }
-      this.OnFadeAfter(payload)
-      switch (payload.command.command) {
+      switch (payload?.command.command) {
         // announce - USERNOTICE
         // нужно добавить реконнект
         case 'CLEARCHAT':
@@ -129,6 +128,7 @@ export default class TwitchClient {
             this.OnUserId(payload.tags['room-id'])
           }
           this.OnPrivateMessage(payload)
+          this.OnFadeAfter(payload)
           break
         case 'PING':
           this.ws.send(`PONG ${payload.message}`)

@@ -29,6 +29,9 @@ export default {
 
         fontName: this.$route.query.font || 'Open Sans',
         fontWeight: parseInt(this.$route.query.font_weight || '800'),
+
+        hideCommands: this.$route.query.hide_commands || 'false',
+        hideList: this.$route.query.hide.split(',') || ['false'],
       },
     }
   },
@@ -106,6 +109,22 @@ export default {
         this.useBG = 0
       } else {
         this.useBG += 1
+      }
+
+      if (this.pageConfig.hideCommands.toLowerCase() === 'true') {
+        if (
+          message.parameters.startsWith('!') ||
+          message.parameters.startsWith('#') ||
+          message.parameters.startsWith('+')
+        ) {
+          return
+        }
+      }
+
+      if (this.pageConfig.hideList[0] !== 'false') {
+        if (this.pageConfig.hideList.includes(message.source.nick)) {
+          return
+        }
       }
 
       this.messages.push(message)
@@ -200,9 +219,9 @@ export default {
     this.client.OnFadeAfter = async (payload) => {
       if (this.pageConfig.fade != '0') {
         setTimeout(
-          (id) => {
+          () => {
             const message = this.messages.find(
-              (item) => item.tags['id'] === id || item.tags['id'] === '0',
+              (item) => item.tags['id'] === payload.tags.id || item.tags['id'] === '0',
             )
             if (message) {
               // Add fadeOut flag to the message
@@ -211,12 +230,11 @@ export default {
             // Optionally remove the message after fade-out animation
             setTimeout(() => {
               this.messages = this.messages.filter(
-                (item) => item.tags['id'] !== id && item.tags['id'] !== '0',
+                (item) => item.tags['id'] !== payload.tags.id && item.tags['id'] !== '0',
               )
             }, 1000) // Wait for the fade-out animation to finish
           },
-          parseInt(this.pageConfig.fade) * 1000,
-          payload.tags.id.slice(),
+          parseInt(this.pageConfig.fade) * 1000
         )
       }
     }
@@ -242,17 +260,15 @@ export default {
 
 <template>
   <div id="chat" :transparent="isTransparent">
-    <transition-group :name="transition_group">
-      <Message
-        v-for="(item, i) in messages"
-        :key="item.tags.id"
-        :payload="item"
-        :api="api"
-        :pageConfig="pageConfig"
-        :pos="i"
-        :class="{ fadeOut: item.fadeOut }"
-      />
-    </transition-group>
+    <Message
+      v-for="(item, i) in messages"
+      :key="item.tags.id"
+      :payload="item"
+      :api="api"
+      :pageConfig="pageConfig"
+      :pos="i"
+      :class="{ fadeOut: item.fadeOut }"
+    />
   </div>
 </template>
 
