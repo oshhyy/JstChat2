@@ -31,7 +31,7 @@ export default {
         fontWeight: parseInt(this.$route.query.font_weight || '800'),
 
         hideCommands: this.$route.query.hide_commands || 'false',
-        hideList: this.$route.query.hide.split(',') || ['false'],
+        hideList: this.$route.query.hide?.split(',') || ['false'],
       },
     }
   },
