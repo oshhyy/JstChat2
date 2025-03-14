@@ -87,12 +87,14 @@ export default {
   max-height: 1.5em;
 }
 #content img {
+  max-width: 400px;
   width: auto;
   height: 2.5em;
-  max-width: 400px;
+  max-height: 2.5em;
   vertical-align: middle;
 } #content img[zerowidth="true"] {
-  transform: translateX(-100%);
+  position: absolute;
+  transform: translateX(calc(-100% - 0.25em));
 }
 #content {
   vertical-align: middle;

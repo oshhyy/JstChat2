@@ -13,11 +13,11 @@ export default {
       // getting custom badges:
       console.log(json.room.mod_urls)
       let mod_badge = undefined
-      if (json.room.mod_urls != undefined) mod_badge = json.room.mod_urls['2']
+      if (json.room.mod_urls != undefined) mod_badge = `https://cdn.frankerfacez.com/room-badge/mod/${channel}/2/rounded`
 
       console.log(json.vip_badge)
       let vip_badge = undefined
-      if (json.room.vip_badge != undefined) vip_badge = json.room.vip_badge['2']
+      if (json.room.vip_badge != undefined) vip_badge = `https://cdn.frankerfacez.com/room-badge/vip/${channel}/2`
       return [emotes, mod_badge, vip_badge]
     }
     if (response.status != 404) {

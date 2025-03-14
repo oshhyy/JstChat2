@@ -33,6 +33,13 @@ export default class API {
     this.emotes = Object.assign(this.emotes, await this.BTTV.getBttvGlobalEmotes())
     this.emotes = Object.assign(this.emotes, await this.BTTV.getBttvEmotes(this.twitch.userID))
     em = await this.FFZ.getFfzEmotes(this.twitch.channel)
+    if(em[1] != undefined) {
+      this.twitch.badges["moderator"] = {'1': em[1]}
+    }
+    if(em[2] != undefined) {
+      this.twitch.badges["vip"] = {'1': em[2]}
+    }
+    console.log(this.twitch.badges)
     this.emotes = Object.assign(this.emotes, em[0])
     this.emotes = Object.assign(this.emotes, await this.FFZ.getFfzGlobalEmotes(this.twitch.userID))
     console.log(this.emotes)
