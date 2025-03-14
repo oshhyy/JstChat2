@@ -6,17 +6,17 @@ export default class TwitchAPI {
   }
 
   async fetchData() {
-    this.badges = await this.getGlobalBadges()
     this.userID = await this.getUserID(this.channel)
+    this.badges = await this.getGlobalBadges(this.userID)
     this.badges['subscriber'] = await this.getSubscriberBadges(this.userID)
   }
 
-  async getGlobalBadges() {
+  async getGlobalBadges(user_id) {
     let badges = {}
 
-    const response = await fetch('https://api.ivr.fi/v2/twitch/badges/global')
+    let response = await fetch('https://api.ivr.fi/v2/twitch/badges/global')
     if (response.ok) {
-      const json = await response.json()
+      let json = await response.json()
       for (const value of json) {
         let vers = value['versions']
         let finalVersions = {}
@@ -25,7 +25,24 @@ export default class TwitchAPI {
         }
         badges[value['set_id']] = finalVersions
       }
+
+      // add channel specific badges (bits etc.)
+      let channelRequest = await fetch(`https://api.ivr.fi/v2/twitch/badges/channel?id=${user_id}`)
+      if (channelRequest.ok) {
+        json = await channelRequest.json()
+        for (const value of json) {
+          if (value['set_id'] != 'subscriber') {
+            let vers = value['versions']
+            let finalVersions = {}
+            for (const value of vers) {
+              finalVersions[value['id']] = value['image_url_2x']
+            }
+            badges[value['set_id']] = finalVersions
+          }
+        }
+
       return badges
+      }
     }
     if (response.status != 404) {
       throw 'not loaded'
