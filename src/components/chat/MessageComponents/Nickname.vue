@@ -11,6 +11,7 @@ export default {
     Background: String,
     Paints: Object,
     userid: String,
+    action: String,
   },
   computed: {
     Color() {
@@ -117,7 +118,7 @@ export default {
 </script>
 
 <template>
-  <span class="nickname" :HavePaints="HavePaints"> {{ nick }}: </span>
+  <span class="nickname" :HavePaints="HavePaints"> {{ nick }}{{ action }} </span>
 </template>
 
 <style>

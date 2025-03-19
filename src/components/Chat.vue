@@ -24,11 +24,13 @@ export default {
         border: this.$route.query.border || '2',
         fade: parseInt(this.$route.query.fade_after || '0'),
 
-        backgrounds: [this.$route.query.background || '#2b2b2b'],
+        backgrounds: [this.$route.query.background || 'transparent'],
         calcSecondBackgrounds: parseInt(this.$route.query.sb || '5'),
 
         fontName: this.$route.query.font || 'Open Sans',
         fontWeight: parseInt(this.$route.query.font_weight || '800'),
+
+        dontAnimate: this.$route.query.dont_animate || 'false',
 
         hideCommands: this.$route.query.hide_commands || 'false',
         hideList: this.$route.query.hide?.split(',') || ['false'],
@@ -254,6 +256,12 @@ export default {
     fontWeight() {
       return this.pageConfig.fontWeight
     },
+    animation() {
+      if(this.pageConfig.dontAnimate == 'true') {
+        return `0s`
+      }
+      return `fadeInUp 0.3s ease forwards`
+    }
   },
 }
 </script>
@@ -310,7 +318,7 @@ export default {
 }
 
 #chat > div {
-  animation: fadeInUp 0.3s ease forwards;
+  animation: v-bind('animation');
   filter: drop-shadow(3px 3px 0.1rem black);
 }
 

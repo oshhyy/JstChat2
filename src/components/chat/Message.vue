@@ -52,6 +52,18 @@ export default {
     Border() {
       return `${this.pageConfig.border}px solid black`
     },
+    SlashMe() {
+      if(this.payload.action == true) {
+        return `${this.payload.tags.color}`
+      }
+      return `white`
+    },
+    ActionUsername() {
+      if(this.payload.action == true) {
+        return ` `
+      }
+      return `: `
+    }
   },
 }
 </script>
@@ -67,6 +79,7 @@ export default {
       :Background="Background"
       :Paints="api.paints"
       :userid="payload.tags.user_id"
+      :action="ActionUsername"
     />
     <span
       id="content"
@@ -105,7 +118,7 @@ export default {
   min-height: v-bind('MessageSize');
 
   width: 100%;
-  color: white;
+  color: v-bind('SlashMe');
   background-color: v-bind('Background');
 
   display: inline-block;
