@@ -1,3 +1,7 @@
+fork of jstchat2 to add some features i like :p
+https://oshhyy.github.io/JstChat2/#/
+
+og description:
 # Rewritten version of JstChat.
 
 # usage
