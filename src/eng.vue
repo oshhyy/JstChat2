@@ -24,7 +24,7 @@
 
       <div id="param">
         <span id="info">font:</span>
-        <select id="selector" v-bind:style="{ fontFamily: font, fontWeight: 700 }" v-model="font">
+        <select id="selector" v-bind:style="{ fontWeight: 700 }" v-model="font">
           <option value="Open Sans">Open Sans</option>
           <option value="Lato">Lato</option>
           <option value="Noto Sans">Noto Sans</option>
@@ -35,7 +35,7 @@
         </select>
 
         <span id="info">font size:</span>
-        <input type="number" min="10" step="1" placeholder="36" v-model="font_size" />
+        <input type="number" min="10" step="1" max="128" placeholder="36" v-model="font_size" />
         <span id="info">px</span>
       </div>
 

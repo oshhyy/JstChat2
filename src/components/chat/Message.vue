@@ -93,21 +93,22 @@ export default {
 </template>
 
 <style>
-.emoji {
+#content img {
+  max-width: 7.5em;
+  max-height: 2.5em;
+  width: auto;
+  height: 2.5em;
+  vertical-align: middle;
+}
+#content img[zerowidth="true"] {
+  position: absolute;
+  transform: translateX(calc(-100% - 0.25em));
+}
+#content .emoji {
   vertical-align: middle;
   filter: unset;
   width: auto;
   max-height: 1.5em;
-}
-#content img {
-  max-width: 400px;
-  width: auto;
-  height: 2.5em;
-  max-height: 2.5em;
-  vertical-align: middle;
-} #content img[zerowidth="true"] {
-  position: absolute;
-  transform: translateX(calc(-100% - 0.25em));
 }
 #content {
   vertical-align: middle;
