@@ -102,7 +102,7 @@ export default {
 }
 #content img[zerowidth="true"] {
   position: absolute;
-  transform: translateX(calc(-100% - 0.25em));
+  transform: translateX(calc(-100%));
 }
 #content .emoji {
   vertical-align: middle;
