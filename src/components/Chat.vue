@@ -131,7 +131,7 @@ export default {
 
       this.messages.push(message)
     },
-    createSystemMessage(message) {
+    async createSystemMessage(message) {
       if (this.messages.length >= this.pageConfig.maxMes) {
         this.messages.shift()
       }
@@ -200,7 +200,7 @@ export default {
     //
 
     this.client = new TwitchClient(this.pageConfig.channel)
-    this.createSystemMessage(`Connected to #${this.pageConfig.channel}!`)
+    // this.createSystemMessage(`Connected to #${this.pageConfig.channel}!`)
     this.client.OnPrivateMessage = this.createTwitchMessage
     this.client.OnUserId = (id) => {
       if (this.userID == null) {
