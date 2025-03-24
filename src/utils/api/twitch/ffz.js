@@ -41,4 +41,29 @@ export default {
     }
     return {}
   },
+  async getFfzBadges(channel) {
+    let badges = []
+    const response = await fetch(`https://api.frankerfacez.com/v1/badges`)
+    if (response.ok) {
+      const json = await response.json()
+      for (const b of json.badges) {
+        badges.push({id: b.id, name:b.name, url:`https://cdn.frankerfacez.com/badge/${b.id}/2/rounded`, users:json.users[b.id]})
+      }
+      const channelResponse = await fetch(`https://api.frankerfacez.com/v1/_room/${channel}`)
+      if(channelResponse.ok) {
+        const channelJson = await channelResponse.json()
+        if(channelJson.room.user_badges['2']) {
+          for (const b of badges) {
+            if (b.id == 2) {
+              b.users.push(...channelJson.room.user_badges['2'])
+            }
+          }
+        }
+      }
+      return badges
+    }
+    if (response.status != 404) {
+      throw 'not loaded'
+    }
+  }
 }

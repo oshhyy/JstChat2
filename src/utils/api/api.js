@@ -16,6 +16,7 @@ export default class API {
     this.twitch = new TwitchAPI(channel)
     this.emotes = {}
     this.personalEmotes = {}
+    this.ffzbadges = []
 
     this.seventv_id = null
   }
@@ -43,5 +44,7 @@ export default class API {
     this.emotes = Object.assign(this.emotes, em[0])
     this.emotes = Object.assign(this.emotes, await this.FFZ.getFfzGlobalEmotes(this.twitch.userID))
     console.log(this.emotes)
+    this.ffzbadges = await this.FFZ.getFfzBadges(this.twitch.channel)
+    console.log(this.ffzbadges)
   }
 }

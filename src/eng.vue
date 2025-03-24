@@ -71,8 +71,12 @@
           src="https://static-cdn.jtvnw.net/badges/v1/ba2a2b1c-8231-433c-b887-08684293b68f/2"
         />
         <img
+        id="badges"
+        src="https://static-cdn.jtvnw.net/badges/v1/1687873b-cf38-412c-aad3-f9a4ce17f8b6/2"
+        />
+        <img
           id="badges"
-          src="https://static-cdn.jtvnw.net/badges/v1/1687873b-cf38-412c-aad3-f9a4ce17f8b6/2"
+          src="https://cdn.frankerfacez.com/badge/4/2/rounded"
         />
         <img id="badges" src="https://cdn.7tv.app/badge/01JJJ74CRHZBRMCM8F4Y2WBN6R/2x.webp" />
         <span id="nickname">oshgay: </span>
@@ -319,10 +323,10 @@ input[type='checkbox'] {
   background-image: url("https://cdn.7tv.app/paint/01J5EKNQS80000V182Y1H9Z6Y8/layer/01JAMR36JC0HBZQ4ZQVJJTPEJM/1x.webp");
 }
 #msg img {
-  max-width: 400px;
+  max-width: 7.5em;
+  max-height: 2.5em;
   width: auto;
   height: 2.5em;
-  max-height: 2.5em;
   vertical-align: middle;
 }
 #msg img[zerowidth='true'] {

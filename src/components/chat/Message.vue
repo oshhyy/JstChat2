@@ -21,6 +21,14 @@ export default {
         }
       }
 
+      if(this.api.ffzbadges) {
+        for (const value of this.api.ffzbadges) {
+          if (value.users.includes(this.payload.source.nick)) {
+            badges.push(value.url)
+          }
+        }
+      }
+
       if (this.api.stvbadges) {
         for (const value of this.api.stvbadges) {
           if (value.Users.includes(this.payload.tags.user_id)) {
