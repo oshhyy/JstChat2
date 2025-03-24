@@ -15,9 +15,6 @@ export default {
   },
   computed: {
     Color() {
-      if (this.HavePaints) {
-        return ''
-      }
       let color = this.color
       if (!this.color) {
         color = '#999999'
