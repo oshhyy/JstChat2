@@ -3,7 +3,7 @@ import bttv from './twitch/bttv'
 import ffz from './twitch/ffz'
 import TwitchAPI from './twitch/twitch'
 
-// @todo: нужно как то получать этот айди, а то эмоуты меняются по празникам
+// @todo: https://7tv.io/v3/emote-sets/global
 const SevenTVGlobalEmoteSetID = '01HKQT8EWR000ESSWF3625XCS4'
 
 export default class API {
@@ -17,19 +17,22 @@ export default class API {
     this.emotes = {}
     this.personalEmotes = {}
     this.ffzbadges = []
-
     this.seventv_id = null
   }
 
   async fetchEmotes() {
-    let s = await this.SevenTV.get7tvEmotes(this.twitch.userID)
-    this.emotes = Object.assign(this.emotes, s[0])
+    let em;
+    try {
+      let s = await this.SevenTV.get7tvEmotes(this.twitch.userID)
+      this.emotes = Object.assign(this.emotes, s[0])
+      this.seventv_id = s[1]
+      console.log(this.seventv_id)
 
-    this.seventv_id = s[1]
-    console.log(this.seventv_id)
-
-    let em = await this.SevenTV.get7tvEmoteSetObj(SevenTVGlobalEmoteSetID)
-    this.emotes = Object.assign(this.emotes, em)
+      em = await this.SevenTV.get7tvEmoteSetObj(SevenTVGlobalEmoteSetID)
+      this.emotes = Object.assign(this.emotes, em)
+    } catch (err) {
+      console.log(err)
+    }
 
     this.emotes = Object.assign(this.emotes, await this.BTTV.getBttvGlobalEmotes())
     this.emotes = Object.assign(this.emotes, await this.BTTV.getBttvEmotes(this.twitch.userID))
