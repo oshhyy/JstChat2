@@ -115,7 +115,8 @@ class EventAPI {
       case 0:
         switch (json.d.type) {
           case 'emote_set.update': {
-            // if (json.d.body.contextual) return
+            // fix personal emotes getting added to main set
+            if(json.d.body.id != this.set_id) {return}
 
             if (json.d.body.pulled) {
               for (const item of json.d.body.pulled) {

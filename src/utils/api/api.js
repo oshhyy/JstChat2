@@ -43,11 +43,12 @@ export default class API {
     if(em[2] != undefined) {
       this.twitch.badges["vip"] = {'1': em[2]}
     }
-    console.log(this.twitch.badges)
+
     this.emotes = Object.assign(this.emotes, em[0])
     this.emotes = Object.assign(this.emotes, await this.FFZ.getFfzGlobalEmotes(this.twitch.userID))
-    console.log(this.emotes)
+
     this.ffzbadges = await this.FFZ.getFfzBadges(this.twitch.channel)
-    console.log(this.ffzbadges)
+
+    console.log("Fetched Third Party Emotes.")
   }
 }

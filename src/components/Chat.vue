@@ -202,6 +202,7 @@ export default {
     this.client = new TwitchClient(this.pageConfig.channel)
     console.log(`Connected to #${this.pageConfig.channel}!`)
     this.client.OnPrivateMessage = this.createTwitchMessage
+    this.client.newSystemMessage = this.createSystemMessage
     this.client.OnUserId = (id) => {
       if (this.userID == null) {
         this.userID = id
@@ -238,6 +239,14 @@ export default {
           },
           parseInt(this.pageConfig.fade) * 1000
         )
+      }
+    }
+    this.client.OnCommandExecution = async (payload) => {
+      switch(payload?.command?.botCommand) {
+        case "refreshoverlay":
+        case "refreshemotes":
+          this.api.fetchEmotes()
+          break
       }
     }
     this.client.connect()

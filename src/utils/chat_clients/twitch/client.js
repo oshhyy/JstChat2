@@ -129,6 +129,9 @@ export default class TwitchClient {
           }
           this.OnPrivateMessage(payload)
           this.OnFadeAfter(payload)
+          if(payload?.command?.botCommand) {
+            this.OnCommandExecution(payload)
+          }
           break
         case 'PING':
           this.ws.send(`PONG ${payload.message}`)

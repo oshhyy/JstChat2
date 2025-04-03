@@ -93,8 +93,8 @@ export default {
       id="content"
       v-twitch-emotes="TwitchEmotes"
       v-emoji
-      v-emotes="api.emotes"
       v-personal-emotes="api.personalEmotes[payload.source.nick]"
+      v-emotes="api.emotes"
       >{{ payload.parameters }}</span
     >
   </div>
