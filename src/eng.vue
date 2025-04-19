@@ -32,6 +32,7 @@
           <option value="Poppins">Poppins</option>
           <option value="Comic Sans MS">Comic Sans MS</option>
           <option value="Impact">Impact</option>
+          <option value="Minecraftia">Minecraft</option>
         </select>
 
         <span id="info">font size:</span>

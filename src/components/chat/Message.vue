@@ -11,6 +11,27 @@ export default {
     api: Object,
     pageConfig: Object,
   },
+  data() {
+    return {
+      defaultColors: [
+        '#4242f7',
+        '#ff7f50',
+        '#1e90ff',
+        '#00ff7f',
+        '#9acd32',
+        '#008000',
+        '#ff4500',
+        '#ff0000',
+        '#daa520',
+        '#ff69b4',
+        '#5f9ea0',
+        '#2e8b57',
+        '#d2691e',
+        '#a065d7',
+        '#b22222',
+      ],
+    }
+  },
   computed: {
     Badges() {
       let badges = []
@@ -71,6 +92,12 @@ export default {
         return ` `
       }
       return `: `
+    },
+    UserColor() {
+      if(this.payload.tags.color) {
+        return this.payload.tags.color
+      }
+      return this.defaultColors[Math.floor(Math.random() * this.defaultColors.length)]
     }
   },
 }
@@ -82,7 +109,7 @@ export default {
 
     <Nickname
       :nick="payload.tags.display_name"
-      :color="payload.tags.color"
+      :color="UserColor"
       :pageConfig="pageConfig"
       :Background="Background"
       :Paints="api.paints"

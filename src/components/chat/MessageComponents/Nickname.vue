@@ -16,10 +16,6 @@ export default {
   computed: {
     Color() {
       let color = this.color
-      if (!this.color) {
-        color = '#999999'
-        return color
-      }
       if (this.Background != 'transparent') {
         // если сообщение сливается с фоном:
         let userRGB = Common.hexToRgb(color)
