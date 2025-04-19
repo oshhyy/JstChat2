@@ -3,7 +3,7 @@
     <div id="index">
       <div id="title">Just Chat 2</div>
       <span id="git"
-        >github: <a href="http://github.com/justririll">justririll</a> ● fork by oshgay</span
+        >github: <a href="http://github.com/justririll">justririll</a> ● fork by oshhyy</span
       >
       <br />
     </div>
@@ -60,7 +60,7 @@
       <br />
       <div
         id="example"
-        v-bind:style="{ fontFamily: font, fontWeight: 700, fontSize: font_size + 'px' }"
+        v-bind:style="{ fontFamily: font, fontWeight: 700, fontSize: font_size + 'px', backgroundColor: Background }"
       >
         <img
           id="badges"
@@ -79,7 +79,7 @@
           src="https://cdn.frankerfacez.com/badge/4/2/rounded"
         />
         <img id="badges" src="https://cdn.7tv.app/badge/01JJJ74CRHZBRMCM8F4Y2WBN6R/2x.webp" />
-        <span id="nickname">oshgay: </span>
+        <span id="nickname">oshy: </span>
         <span id="msg"><img src="https://cdn.7tv.app/emote/01FKX5H3G00004X8QJ9S80KD4F/2x.webp"/> This is an example message. <img src="https://cdn.7tv.app/emote/01GRKPZCJ80004NWC6YE8DQMV2/2x.webp"/> <img src="https://cdn.7tv.app/emote/01FECNYCHG000CZZNZB30AN3SE/2x.webp" zerowidth="true"/></span>
 
       </div>
@@ -125,6 +125,10 @@
           onclick="this.select(); navigator.clipboard.writeText(this.value);"
           readonly
         />
+      </div>
+      <div id="index">
+        <br />
+        <span id="disclaimer" style="margin-inline: auto; max-width: fit-content;">not affiliated with twitch</span>
       </div>
     </div>
   </div>
@@ -203,6 +207,12 @@ export default {
     MessageSize() {
       return `${Math.round(1.33 * this.font_size + 7)}px`
     },
+    Background() {
+      if(this.show_bg_options) {
+        return this.background
+      }
+      return '#000000'
+    }
   },
   methods: {
     changeStyle(event) {
@@ -300,6 +310,7 @@ input[type='checkbox'] {
   margin-right: 2em;
 }
 #example {
+
   display: inline-block;
   max-width: 900px;
   min-height: v-bind(MessageSize);

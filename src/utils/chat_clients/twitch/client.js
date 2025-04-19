@@ -130,7 +130,10 @@ export default class TwitchClient {
           this.OnPrivateMessage(payload)
           this.OnFadeAfter(payload)
           if(payload?.command?.botCommand) {
-            this.OnCommandExecution(payload)
+            if(payload.tags.mod != '0') {
+              console.log('Command executed')
+              this.OnCommandExecution(payload)
+            }
           }
           break
         case 'PING':

@@ -137,8 +137,9 @@ export default {
       }
       let mes = {
         parameters: message,
-        tags: { display_name: 'CHAT', id: '0' },
-        source: { nick: 'chat' },
+        tags: { display_name: '', id: '0', color: "#999999" },
+        source: { nick: 'system' },
+        action: true
       }
       mes.type = 'system'
 
@@ -242,11 +243,12 @@ export default {
       }
     }
     this.client.OnCommandExecution = async (payload) => {
-      switch(payload?.command?.botCommand) {
-        case "refreshoverlay":
-        case "refreshemotes":
-          this.api.fetchEmotes()
-          break
+        switch(payload?.command?.botCommand) {
+          case "refreshoverlay":
+          case "refreshemotes":
+            this.api.fetchEmotes()
+            this.createSystemMessage('Emotes have been reloaded.')
+            break
       }
     }
     this.client.connect()
