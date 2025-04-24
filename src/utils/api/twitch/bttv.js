@@ -28,7 +28,7 @@ export default {
     if (response.ok) {
       const json = await response.json()
       for (const value of json) {
-        emotes[value.code] = { ID: value.id, Type: 'BTTV' }
+        emotes[value.code] = { ID: value.id, Type: 'BTTV', ZeroWidth: value.code == 'cvHazmat' || value.code == 'cvMask' }
       }
       return emotes
     }
