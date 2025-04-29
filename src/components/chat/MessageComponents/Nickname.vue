@@ -99,7 +99,7 @@ export default {
         return this.Paint.shadows
           .map(
             (v) =>
-              `drop-shadow(${v.x_offset}px ${v.y_offset}px ${v.radius}px ${Common.DecimalToStringRGBA(v.color)})`,
+              `drop-shadow(${v.x_offset*2}px ${v.y_offset*2}px ${v.radius}px ${Common.DecimalToStringRGBA(v.color)})`,
           )
           .join(' ')
       } catch {
@@ -128,6 +128,7 @@ export default {
   background-clip: text !important;
   background-color: currentcolor;
   background-image: v-bind('bgImage');
+  color: transparent !important;
   text-shadow: none !important;
 }
 </style>

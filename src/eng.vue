@@ -198,7 +198,7 @@ export default {
         return this.paint_shadows
           .map(
             (v) =>
-              `drop-shadow(${v.x_offset}px ${v.y_offset}px ${v.radius}px ${Common.DecimalToStringRGBA(v.color)})`,
+              `drop-shadow(${v.x_offset*2}px ${v.y_offset*2}px ${v.radius}px ${Common.DecimalToStringRGBA(v.color)})`,
           )
           .join(' ')
       } catch {
@@ -332,6 +332,7 @@ input[type='checkbox'] {
   -webkit-background-clip: text;
   background-clip: text !important;
   background-color: currentcolor;
+  color: transparent !important;
   background-image: url("https://cdn.7tv.app/paint/01J5EKNQS80000V182Y1H9Z6Y8/layer/01JAMR36JC0HBZQ4ZQVJJTPEJM/1x.webp");
 }
 #msg img {
