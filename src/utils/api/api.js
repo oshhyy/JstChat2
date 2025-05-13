@@ -4,7 +4,7 @@ import ffz from './twitch/ffz'
 import TwitchAPI from './twitch/twitch'
 
 // @todo: https://7tv.io/v3/emote-sets/global
-const SevenTVGlobalEmoteSetID = '01HKQT8EWR000ESSWF3625XCS4'
+const SevenTVGlobalEmoteSetID = 'global'
 
 export default class API {
   constructor(channel) {

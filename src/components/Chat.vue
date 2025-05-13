@@ -231,12 +231,6 @@ export default {
               // Add fadeOut flag to the message
               message.fadeOut = true
             }
-            // Optionally remove the message after fade-out animation
-            setTimeout(() => {
-              this.messages = this.messages.filter(
-                (item) => item.tags['id'] !== payload.tags.id && item.tags['id'] !== '0',
-              )
-            }, 1000) // Wait for the fade-out animation to finish
           },
           parseInt(this.pageConfig.fade) * 1000
         )
