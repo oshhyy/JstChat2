@@ -38,7 +38,7 @@ export default class TwitchClient {
   }
 
   join(channel) {
-    this.ws.send(`PART #${channel}`)
+    this.ws.send(`JOIN #${channel}`)
   }
 
   disconnect() {
@@ -128,13 +128,24 @@ export default class TwitchClient {
             this.OnUserId(payload.tags['room-id'])
           }
           this.OnPrivateMessage(payload)
-          this.OnFadeAfter(payload)
+          this.OnFadeAfter(payload.tags['id'])
           if(payload?.command?.botCommand) {
             if(payload.tags.mod != '0') {
               console.log('Command executed')
               this.OnCommandExecution(payload)
             }
           }
+          break
+        case 'USERNOTICE':
+          if (this.channelID == null) {
+            this.channelID = payload.tags['room-id']
+            this.OnUserId(payload.tags['room-id'])
+          }
+          if(payload.parameters) {
+            this.OnPrivateMessage(payload)
+          }
+          this.newSystemMessage(payload.tags['system_msg'].replace(/\\s/g, " "))
+          this.OnFadeAfter(payload.tags['id'])
           break
         case 'PING':
           this.ws.send(`PONG ${payload.message}`)

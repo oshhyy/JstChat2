@@ -15,6 +15,7 @@ export default {
       api: null,
       messages: [],
       useBG: 0,
+      sysmsgID: 0,
 
       pageConfig: {
         maxMes: 50,
@@ -100,6 +101,22 @@ export default {
         this.api.personalEmotes[user] = e
       }
     },
+    async OnFadeAfter(id) {
+    if(this.pageConfig.fade != 0) {
+      setTimeout(
+            () => {
+              const message = this.messages.find(
+                (item) => item.tags['id'] == id,
+              )
+              if (message) {
+                // Add fadeOut flag to the message
+                message.fadeOut = true
+              }
+            },
+            parseInt(this.pageConfig.fade) * 1000
+          )
+      }
+    },
     createTwitchMessage(message) {
       if (this.messages.length >= this.pageConfig.maxMes) {
         this.messages.shift()
@@ -130,6 +147,7 @@ export default {
       }
 
       this.messages.push(message)
+      this.OnFadeAfter(message.tags.id)
     },
     async createSystemMessage(message) {
       if (this.messages.length >= this.pageConfig.maxMes) {
@@ -137,7 +155,7 @@ export default {
       }
       let mes = {
         parameters: message,
-        tags: { display_name: '', id: '0', color: "#999999" },
+        tags: { display_name: '', id: this.sysmsgID, color: "#999999" },
         source: { nick: 'system' },
         action: true
       }
@@ -149,8 +167,9 @@ export default {
       } else {
         this.useBG += 1
       }
-
       this.messages.push(mes)
+      this.OnFadeAfter(mes.tags.id)
+      this.sysmsgID++
     },
   },
   created: async function () {
@@ -201,7 +220,6 @@ export default {
     //
 
     this.client = new TwitchClient(this.pageConfig.channel)
-    console.log(`Connected to #${this.pageConfig.channel}!`)
     this.client.OnPrivateMessage = this.createTwitchMessage
     this.client.newSystemMessage = this.createSystemMessage
     this.client.OnUserId = (id) => {
@@ -220,22 +238,6 @@ export default {
     this.client.OnClearMessage = async (payload) => {
       this.messages = this.messages.filter((item) => item.parameters !== payload.parameters)
     }
-    this.client.OnFadeAfter = async (payload) => {
-      if (this.pageConfig.fade != '0') {
-        setTimeout(
-          () => {
-            const message = this.messages.find(
-              (item) => item.tags['id'] === payload.tags.id || item.tags['id'] === '0',
-            )
-            if (message) {
-              // Add fadeOut flag to the message
-              message.fadeOut = true
-            }
-          },
-          parseInt(this.pageConfig.fade) * 1000
-        )
-      }
-    }
     this.client.OnCommandExecution = async (payload) => {
         switch(payload?.command?.botCommand) {
           case "refreshoverlay":
@@ -246,6 +248,7 @@ export default {
       }
     }
     this.client.connect()
+    this.createSystemMessage(`Connected to #${this.pageConfig.channel}!`)
   },
   computed: {
     fontSize() {
