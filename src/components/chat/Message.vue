@@ -129,10 +129,10 @@ export default {
 
 <style>
 #content img {
-  max-width: 7.5em;
+  /* max-width: 7.5em;
   max-height: 2.5em;
   width: auto;
-  height: 2.5em;
+  height: 2.5em; */
   vertical-align: middle;
 }
 #content img[zerowidth="true"] {
@@ -141,9 +141,9 @@ export default {
 }
 #content .emoji {
   vertical-align: middle;
-  filter: unset;
+  /* filter: unset;
   width: auto;
-  max-height: 1.5em;
+  max-height: 1.5em; */
 }
 #content {
   vertical-align: middle;
