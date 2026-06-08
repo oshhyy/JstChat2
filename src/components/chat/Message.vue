@@ -141,9 +141,9 @@ export default {
 }
 #content .emoji {
   vertical-align: middle;
-  /* filter: unset;
+  filter: unset;
   width: auto;
-  max-height: 1.5em; */
+  max-height: 1.2em;
 }
 #content {
   vertical-align: middle;

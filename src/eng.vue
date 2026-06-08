@@ -32,6 +32,7 @@
           <option value="Poppins">Poppins</option>
           <option value="Comic Sans MS">Comic Sans MS</option>
           <option value="Impact">Impact</option>
+          <option value="Montserrat">Montserrat</option>
           <option value="Minecraftia">Minecraft</option>
         </select>
 
@@ -239,9 +240,6 @@ export default {
 </script>
 
 <style>
-html {
-  color-scheme: dark !important;
-}
 #main {
   overflow: auto;
   left: 0;

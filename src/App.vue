@@ -11,6 +11,7 @@
   bottom: 0;
 }
 body {
-  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0) !important;
+  overflow: hidden; 
 }
 </style>

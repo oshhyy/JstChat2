@@ -290,6 +290,7 @@ export default {
 
 <style>
 #chat {
+  background-color: transparent;
   font-family: v-bind('fontName');
   font-weight: v-bind('fontWeight');
   position: absolute;
