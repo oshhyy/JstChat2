@@ -23,13 +23,13 @@ export default class API {
   async fetchEmotes() {
     let em;
     try {
+      em = await this.SevenTV.get7tvEmoteSetObj(SevenTVGlobalEmoteSetID)
+      this.emotes = Object.assign(this.emotes, em)
+
       let s = await this.SevenTV.get7tvEmotes(this.twitch.userID)
       this.emotes = Object.assign(this.emotes, s[0])
       this.seventv_id = s[1]
       console.log(this.seventv_id)
-
-      em = await this.SevenTV.get7tvEmoteSetObj(SevenTVGlobalEmoteSetID)
-      this.emotes = Object.assign(this.emotes, em)
     } catch (err) {
       console.log(err)
     }

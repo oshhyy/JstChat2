@@ -73,7 +73,7 @@ export default {
       return {}
     },
     EmoteSize() {
-      return `${this.pageConfig.fontSizeI + 13}px`
+      return `${this.pageConfig.fontSizeI + 20}px`
     },
     EmojiSize() {
       return `${this.pageConfig.fontSizeI + 10}px`
@@ -133,6 +133,7 @@ export default {
   max-height: 2.5em;
   width: auto;
   height: 2.5em; */
+  max-height: v-bind(EmoteSize);
   vertical-align: middle;
 }
 #content img[zerowidth="true"] {
