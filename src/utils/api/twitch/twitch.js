@@ -27,7 +27,7 @@ export default class TwitchAPI {
       }
 
       // add channel specific badges (bits etc.)
-      let channelRequest = await fetch(`https://api.ivr.fi/v2/twitch/badges/channel?id=${user_id}`)
+      let channelRequest = await fetch(`https://api.ivr.fi/v2/twitch/badges/channel?login=${channel}`)
       if (channelRequest.ok) {
         json = await channelRequest.json()
         for (const value of json) {
@@ -60,7 +60,7 @@ export default class TwitchAPI {
   async getSubscriberBadges(user_id) {
     let subscriber = {}
 
-    const response = await fetch(`https://api.ivr.fi/v2/twitch/badges/channel?id=${user_id}`)
+    const response = await fetch(`https://api.ivr.fi/v2/twitch/badges/channel?login=${channel}`)
     const json = await response.json()
     if (response.ok && json.length > 0) {
       for (const obj of json) {
