@@ -7,8 +7,8 @@ export default class TwitchAPI {
 
   async fetchData() {
     this.userID = await this.getUserID(this.channel)
-    this.badges = await this.getGlobalBadges(this.userID)
-    this.badges['subscriber'] = await this.getSubscriberBadges(this.userID)
+    this.badges = await this.getGlobalBadges(this.channel)
+    this.badges['subscriber'] = await this.getSubscriberBadges(this.channel)
   }
 
   async getGlobalBadges(user_id) {
@@ -27,7 +27,7 @@ export default class TwitchAPI {
       }
 
       // add channel specific badges (bits etc.)
-      let channelRequest = await fetch(`https://api.ivr.fi/v2/twitch/badges/channel?login=${channel}`)
+      let channelRequest = await fetch(`https://api.ivr.fi/v2/twitch/badges/channel?login=${this.channel}`)
       if (channelRequest.ok) {
         json = await channelRequest.json()
         for (const value of json) {
@@ -57,7 +57,7 @@ export default class TwitchAPI {
     }
     throw 'Unable to get user id from ivr API!'
   }
-  async getSubscriberBadges(user_id) {
+  async getSubscriberBadges(channel) {
     let subscriber = {}
 
     const response = await fetch(`https://api.ivr.fi/v2/twitch/badges/channel?login=${channel}`)
